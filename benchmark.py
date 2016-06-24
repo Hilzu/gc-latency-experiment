@@ -46,11 +46,11 @@ def parse_v8_gc_output(output):
 
 
 def benchmark_java():
-    benchmark("Java", ["java", "-verbosegc", "-cp", "src/java/", "Main"], parse_java_gc_output)
+    benchmark("Java", ["java", "-verbosegc", "-cp", "src/java/", "-Xmx4G", "Main"], parse_java_gc_output)
 
 
 def benchmark_java_g1():
-    benchmark("Java G1", ["java", "-XX:+UseG1GC", "-verbosegc", "-cp", "src/java", "Main"], parse_java_gc_output)
+    benchmark("Java G1", ["java", "-XX:+UseG1GC", "-verbosegc", "-cp", "src/java", "-Xmx4G", "Main"], parse_java_gc_output)
 
 
 def benchmark_node():
@@ -59,6 +59,10 @@ def benchmark_node():
 
 def benchmark_node_immutable():
     benchmark("Node.js immutable", ["node", "--trace-gc", "src/node/main-immutable.js"], parse_v8_gc_output)
+
+
+def benchmark_scala():
+    benchmark("Scala", ["scala", "-cp", "src/scala", "-J-Xmx4G", "-J-verbosegc", "Main"], parse_java_gc_output)
 
 
 def avg(ls):
@@ -85,7 +89,7 @@ def calculate_stats(times):
 
 
 if __name__ == "__main__":
-    benchmarks = [benchmark_java, benchmark_java_g1, benchmark_node, benchmark_node_immutable]
+    benchmarks = [benchmark_java, benchmark_java_g1, benchmark_node, benchmark_node_immutable, benchmark_scala]
     for i in range(iterations):
         shuffle(benchmarks)
         for b in benchmarks:

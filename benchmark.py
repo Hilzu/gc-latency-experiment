@@ -106,7 +106,10 @@ def median(ls):
     if len(ls) % 2 == 1:
         return ls[len(ls) // 2]
     else:
-        return avg([len(ls) // 2 - 1, len(ls) // 2])
+        return avg([
+            ls[len(ls) // 2 - 1],
+            ls[len(ls) // 2],
+        ])
 
 
 def calculate_stats(times):

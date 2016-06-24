@@ -131,10 +131,9 @@ if __name__ == "__main__":
         shuffle(benchmarks)
         for b in benchmarks:
             b()
-    print("Results")
+    print("\nRESULTS\n")
     for name, res in results.items():
         print(name)
-        print("average clock time:", avg(res["clock_times"]))
-        print("GC pause times")
-        print(calculate_stats(res["gc_times"]))
+        print("Average clock time:", "{0:.2f}".format(avg(res["clock_times"])), "s")
+        print("GC pause times:", calculate_stats(res["gc_times"]))
         print("---")

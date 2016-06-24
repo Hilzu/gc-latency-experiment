@@ -61,6 +61,14 @@ def benchmark_node_immutable():
     benchmark("Node.js immutable", ["node", "--trace-gc", "src/node/main-immutable.js"], parse_v8_gc_output)
 
 
+def benchmark_python():
+    benchmark("Python", ["python", "src/python/main.py"], lambda x: [])
+
+
+def benchmark_pypy():
+    benchmark("PyPy", ["pypy", "src/python/main.py"], lambda x: [])
+
+
 def benchmark_scala():
     benchmark("Scala", ["scala", "-cp", "src/scala", "-J-Xmx4G", "-J-verbosegc", "Main"], parse_java_gc_output)
 
@@ -89,7 +97,10 @@ def calculate_stats(times):
 
 
 if __name__ == "__main__":
-    benchmarks = [benchmark_java, benchmark_java_g1, benchmark_node, benchmark_node_immutable, benchmark_scala]
+    benchmarks = [
+        benchmark_java, benchmark_java_g1, benchmark_node, benchmark_node_immutable, benchmark_python, benchmark_pypy,
+        benchmark_scala,
+    ]
     for i in range(iterations):
         shuffle(benchmarks)
         for b in benchmarks:

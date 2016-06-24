@@ -107,3 +107,5 @@ Temporary Items
 *.log
 Main
 Main.hi
+
+node_modules

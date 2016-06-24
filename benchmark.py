@@ -46,19 +46,19 @@ def parse_v8_gc_output(output):
 
 
 def benchmark_java():
-    benchmark("Java", ["java", "-verbosegc", "-cp", ".", "Main"], parse_java_gc_output)
+    benchmark("Java", ["java", "-verbosegc", "-cp", "src/java/", "Main"], parse_java_gc_output)
 
 
 def benchmark_java_g1():
-    benchmark("Java G1", ["java", "-XX:+UseG1GC", "-verbosegc", "-cp", ".", "Main"], parse_java_gc_output)
+    benchmark("Java G1", ["java", "-XX:+UseG1GC", "-verbosegc", "-cp", "src/java", "Main"], parse_java_gc_output)
 
 
 def benchmark_node():
-    benchmark("Node.js", ["node", "--trace-gc", "main.js"], parse_v8_gc_output)
+    benchmark("Node.js", ["node", "--trace-gc", "src/node/main.js"], parse_v8_gc_output)
 
 
 def benchmark_node_immutable():
-    benchmark("Node.js immutable", ["node", "--trace-gc", "main-immutable.js"], parse_v8_gc_output)
+    benchmark("Node.js immutable", ["node", "--trace-gc", "src/node/main-immutable.js"], parse_v8_gc_output)
 
 
 def avg(ls):

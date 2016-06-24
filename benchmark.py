@@ -1,5 +1,5 @@
 from __future__ import division, print_function
-from subprocess import check_output
+from subprocess import check_output, STDOUT
 from time import time
 from random import shuffle
 import re
@@ -10,7 +10,7 @@ iterations = 5
 
 def benchmark(name, args, output_parser):
     start = time()
-    output = check_output(args, universal_newlines=True)
+    output = check_output(args, universal_newlines=True, stderr=STDOUT)
     end = time()
     r = output_parser(output)
     if name not in results:
@@ -45,6 +45,26 @@ def parse_v8_gc_output(output):
     return times
 
 
+def parse_ghc_gc_output(output):
+    times = []
+    for line in output.split("\n"):
+        if not line:
+            continue
+        try:
+            elems = line.split()
+            float(elems[0])
+            float(elems[1])
+            m = elems[4]
+            pause_time = float(m)
+        except (IndexError, ValueError):
+            print("No match from line:", line)
+            continue
+        if pause_time == 0:
+            continue
+        times.append(pause_time * 1000)
+    return times
+
+
 def benchmark_java():
     benchmark("Java", ["java", "-verbosegc", "-cp", "src/java/", "-Xmx4G", "Main"], parse_java_gc_output)
 
@@ -73,6 +93,10 @@ def benchmark_scala():
     benchmark("Scala", ["scala", "-cp", "src/scala", "-J-Xmx4G", "-J-verbosegc", "Main"], parse_java_gc_output)
 
 
+def benchmark_haskell():
+    benchmark("Haskell", ["./src/haskell/Main", "+RTS", "-S"], parse_ghc_gc_output)
+
+
 def avg(ls):
     return sum(ls) / len(ls)
 
@@ -86,6 +110,8 @@ def median(ls):
 
 
 def calculate_stats(times):
+    if not times:
+        return None
     fmt = "{0:.1f}"
     return {
         "average": fmt.format(avg(times)),
@@ -99,7 +125,7 @@ def calculate_stats(times):
 if __name__ == "__main__":
     benchmarks = [
         benchmark_java, benchmark_java_g1, benchmark_node, benchmark_node_immutable, benchmark_python, benchmark_pypy,
-        benchmark_scala,
+        benchmark_scala, benchmark_haskell,
     ]
     for i in range(iterations):
         shuffle(benchmarks)

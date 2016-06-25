@@ -2,6 +2,7 @@ from __future__ import division, print_function
 from subprocess import check_output, STDOUT
 from time import time
 from random import shuffle
+import matplotlib.pyplot as plt
 import re
 
 results = {}
@@ -74,11 +75,11 @@ def benchmark_java_g1():
 
 
 def benchmark_node():
-    benchmark("Node.js", ["node", "--trace-gc", "src/node/main.js"], parse_v8_gc_output)
+    benchmark("Node", ["node", "--trace-gc", "src/node/main.js"], parse_v8_gc_output)
 
 
 def benchmark_node_immutable():
-    benchmark("Node.js immutable", ["node", "--trace-gc", "src/node/main-immutable.js"], parse_v8_gc_output)
+    benchmark("Node imm", ["node", "--trace-gc", "src/node/main-immutable.js"], parse_v8_gc_output)
 
 
 def benchmark_python():
@@ -135,8 +136,15 @@ if __name__ == "__main__":
         for b in benchmarks:
             b()
     print("\nRESULTS\n")
+    data = []
+    labels = []
     for name, res in results.items():
         print(name)
         print("Average clock time:", "{0:.2f}".format(avg(res["clock_times"])), "s")
         print("GC pause times:", calculate_stats(res["gc_times"]))
         print("---")
+        if res["gc_times"]:
+            data.append(res["gc_times"])
+            labels.append(name)
+    plt.boxplot(data, labels=labels, showmeans=True)
+    plt.show()

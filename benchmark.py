@@ -69,11 +69,15 @@ def parse_ghc_gc_output(output):
 
 
 def benchmark_java():
-    benchmark("Java", ["java", "-verbosegc", "-cp", "src/java/", "-Xmx4G", "Main"], parse_java_gc_output)
+    benchmark("Java", ["java", "-verbosegc", "-cp", "src/java/", "-Xmx1G", "Main"], parse_java_gc_output)
 
 
 def benchmark_java_g1():
-    benchmark("Java G1", ["java", "-XX:+UseG1GC", "-verbosegc", "-cp", "src/java", "-Xmx4G", "Main"], parse_java_gc_output)
+    benchmark(
+        "Java G1",
+        ["java", "-XX:+UseG1GC", "-verbosegc", "-cp", "src/java", "-Xmx1G", "-XX:MaxGCPauseMillis=50", "Main"],
+        parse_java_gc_output,
+    )
 
 
 def benchmark_node():
@@ -93,7 +97,7 @@ def benchmark_pypy():
 
 
 def benchmark_scala():
-    benchmark("Scala", ["scala", "-cp", "src/scala", "-J-Xmx4G", "-J-verbosegc", "Main"], parse_java_gc_output)
+    benchmark("Scala", ["scala", "-cp", "src/scala", "-J-Xmx1G", "-J-verbosegc", "Main"], parse_java_gc_output)
 
 
 def benchmark_haskell():

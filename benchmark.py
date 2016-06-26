@@ -128,7 +128,8 @@ def calculate_stats(times):
         "minimum": fmt.format(min(times)),
         "maximum": fmt.format(max(times)),
         "median": fmt.format(median(times)),
-        "total": fmt.format(sum(times)),
+        "total": fmt.format(sum(times) / iterations),
+        "amount": len(times) / iterations,
     }
 
 

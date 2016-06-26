@@ -8,6 +8,7 @@ that has the original experiment and code.
 
 ```
 ./build-all.sh
+pip install -r requirements.txt
 python benchmark.py
 ```
 

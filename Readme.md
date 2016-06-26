@@ -23,3 +23,10 @@ python benchmark.py
 | **Avg pauses**         |    12 |    25.4 |   46.4 |     29 |      208 |  11.4
 | **Avg clock time (s)** |   1.2 |     1.0 |    2.6 |    5.2 |      9.3 |   1.3
 
+### Box plot of results
+
+![Box plot](https://blog.hilzu.moe/assets/gc-latencies.svg)
+
+### Box plot zoomed in without extreme outliers
+
+![Box plot zoomed in](https://blog.hilzu.moe/assets/gc-latencies-zoomed-in.svg)

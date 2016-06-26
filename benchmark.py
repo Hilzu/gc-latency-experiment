@@ -25,6 +25,8 @@ def parse_java_gc_output(output):
     for line in output.split("\n"):
         if not line:
             continue
+        if line.startswith("[GC concurrent"):
+            continue
         m = re.search(r"(\d+[,.]\d+) secs]$", line)
         if not m:
             print("No match from line:", line)

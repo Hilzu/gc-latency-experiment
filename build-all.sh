@@ -13,3 +13,6 @@ npm install
 
 cd ../haskell
 stack ghc -- -O2 -optc-O3 Main.hs
+
+cd ../swift
+swiftc -O Main.swift

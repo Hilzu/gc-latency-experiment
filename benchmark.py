@@ -95,6 +95,8 @@ def benchmark_python():
 def benchmark_pypy():
     benchmark("PyPy", ["pypy", "src/python/main.py"], lambda x: [])
 
+def benchmark_swift():
+    benchmark("Swift", ["./src/swift/Main"], lambda x: [])
 
 def benchmark_scala():
     benchmark("Scala", ["scala", "-cp", "src/scala", "-J-Xmx1G", "-J-verbosegc", "Main"], parse_java_gc_output)

@@ -90,7 +90,7 @@ def benchmark_node_immutable():
 
 
 def benchmark_python():
-    benchmark("Python", ["python", "src/python/main.py"], lambda x: [])
+    benchmark("Python 3", ["python3", "src/python/main.py"], lambda x: [])
 
 
 def benchmark_pypy():

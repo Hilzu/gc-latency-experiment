@@ -1,4 +1,5 @@
-from __future__ import division, print_function
+#!/usr/bin/env python3
+
 from subprocess import check_output, STDOUT
 from time import time
 from random import shuffle

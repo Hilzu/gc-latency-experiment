@@ -17,6 +17,6 @@
   },
   "homepage": "https://github.com/Hilzu/gc-latency-experiment#readme",
   "dependencies": {
-    "immutable": "^3.8.1"
+    "immutable": "^3.8.2"
   }
 }

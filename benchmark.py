@@ -129,7 +129,7 @@ def benchmark_swift():
     benchmark("Swift", ["./src/swift/Main"], lambda x: [])
 
 def benchmark_scala():
-    benchmark("Scala", ["scala", "-cp", "src/scala", "-J-Xmx1G", "-J-verbosegc", "Main"], parse_java_gc_output)
+    benchmark("Scala", ["scala", "-cp", "src/scala", "-J-Xmx1G", "-J-verbosegc", "Main"], parse_java9_gc_output)
 
 
 def benchmark_haskell():

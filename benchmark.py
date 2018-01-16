@@ -7,7 +7,7 @@ import matplotlib.pyplot as plt
 import re
 
 results = {}
-iterations = 5
+iterations = 10
 
 
 def benchmark(name, args, output_parser):

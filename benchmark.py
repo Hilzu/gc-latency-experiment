@@ -21,7 +21,7 @@ def benchmark(name, args, output_parser):
     results[name]["clock_times"].append(end - start)
 
 
-def parse_java_gc_output(output):
+def parse_java8_gc_output(output):
     times = []
     for line in output.split("\n"):
         if not line:
@@ -33,6 +33,20 @@ def parse_java_gc_output(output):
             print("No match from line:", line)
             continue
         times.append(float(m.group(1).replace(",", ".")) * 1000)
+    return times
+
+
+def parse_java9_gc_output(output):
+    times = []
+    for line in output.split("\n"):
+        if not line:
+            continue
+        m = re.search(r"GC\(\d+\) Pause.*?(\d+\.\d+)ms$", line.strip())
+        if not m:
+            if "[gc]" in line: continue
+            print("No match from line:", line)
+            continue
+        times.append(float(m.group(1)))
     return times
 
 
@@ -70,7 +84,7 @@ def parse_ghc_gc_output(output):
 
 
 def benchmark_java():
-    benchmark("Java", ["java", "-verbosegc", "-cp", "src/java/", "-Xmx1G", "Main"], parse_java_gc_output)
+    benchmark("Java", ["java", "-verbosegc", "-cp", "src/java/", "-Xmx1G", "Main"], parse_java9_gc_output)
 
 
 def benchmark_java_g1():

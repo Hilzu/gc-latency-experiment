@@ -21,4 +21,8 @@ stack ghc -- -O2 -optc-O3 Main.hs
 
 cd ../swift
 swiftc --version
-swiftc -O Main.swift
+swiftc -O -Xcc -O3 Main.swift
+
+cd ../go
+go version
+go build

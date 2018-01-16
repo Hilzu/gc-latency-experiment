@@ -7,4 +7,5 @@ rm -rf src/haskell/Main src/haskell/*.hi src/haskell/*.o \
   src/node/node_modules \
   src/python/*.pyc \
   src/scala/*.class \
-  src/swift/Main
+  src/swift/Main \
+  src/go/go

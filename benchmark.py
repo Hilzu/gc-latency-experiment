@@ -107,6 +107,10 @@ def benchmark_haskell():
     benchmark("Haskell", ["./src/haskell/Main", "+RTS", "-S"], parse_ghc_gc_output)
 
 
+def benchmark_go():
+    benchmark("Go", ["./src/go/go"], lambda x:[])
+
+
 def avg(ls):
     return sum(ls) / len(ls)
 
@@ -138,8 +142,8 @@ def calculate_stats(times):
 
 if __name__ == "__main__":
     benchmarks = [
-        benchmark_java, benchmark_java_g1, benchmark_node, benchmark_node_immutable, benchmark_python, benchmark_pypy,
-        benchmark_scala, benchmark_haskell,
+        benchmark_java, benchmark_node, benchmark_node_immutable, benchmark_python,
+        benchmark_scala, benchmark_haskell, benchmark_swift, benchmark_go
     ]
     for i in range(iterations):
         shuffle(benchmarks)

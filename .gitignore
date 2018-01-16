@@ -110,3 +110,5 @@ Main.hi
 
 node_modules
 venv
+
+src/go/go

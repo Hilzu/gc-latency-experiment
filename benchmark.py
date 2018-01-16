@@ -83,6 +83,21 @@ def parse_ghc_gc_output(output):
     return times
 
 
+def parse_go_gc_output(output):
+    times = []
+    for line in output.split("\n"):
+        line = line.strip()
+        if not line.startswith("gc "):
+            print("No match from line:", line)
+            continue
+        m = re.search(r"([0-9+.]+) ms clock", line)
+        if not m:
+            print("No match from line:", line)
+            continue
+        times.append(sum([float(x) for x in m.group(1).split("+")]))
+    return times
+
+
 def benchmark_java():
     benchmark("Java", ["java", "-verbosegc", "-cp", "src/java/", "-Xmx1G", "Main"], parse_java9_gc_output)
 
@@ -122,7 +137,7 @@ def benchmark_haskell():
 
 
 def benchmark_go():
-    benchmark("Go", ["./src/go/go"], lambda x:[])
+    benchmark("Go", ["env", "GODEBUG=gctrace=1", "./src/go/go"], parse_go_gc_output)
 
 
 def avg(ls):

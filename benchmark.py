@@ -55,7 +55,7 @@ def parse_v8_gc_output(output):
     for line in output.split("\n"):
         if not line:
             continue
-        m = re.search(r", (\d+\.\d+) / 0 ms", line)
+        m = re.search(r", (\d+\.\d+) / 0.0 ms", line)
         if not m:
             print("No match from line:", line)
             continue

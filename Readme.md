@@ -17,7 +17,8 @@ python benchmark.py
 
 ## Results (milliseconds)
 
-All tests run with MacBook Pro (Retina, 15-inch, Late 2013) and macOS 10.12.6.
+All tests run with MacBook Pro (Retina, 15-inch, Late 2013) and macOS 10.12.6. Times in milliseconds
+except where noted.
 
 |                             |  Java |  Scala |  Node | Node Imm | Haskell |    Go | Python | Swift |
 | --------------------------- | ----: | -----: | ----: | -------: | ------: | ----: | -----: | ----: |
